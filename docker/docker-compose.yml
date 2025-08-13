@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: nginx
+      dockerfile: ../Dockerfile
+    container_name: programwithgio-app
+    restart: always
+    working_dir: /var/www/
+    volumes:
+          - ../src:/var/www
+          - ./nginx/php.ini:/usr/local/etc/php/php.ini
+  nginx:
+    image: nginx:latest
+    container_name: programwithgio-nginx
+    restart: always
+    ports:
+    - "8000:80"
+    volumes:
+      - ../src:/var/www
+      - ./nginx:/etc/nginx/conf.d
+
