@@ -5,6 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 define('STORAGE_PATH', __DIR__ . '/../storage');
+define('VIEW_PATH', __DIR__ . '/../views');
 
 $router = new App\Router();
 

@@ -2,10 +2,7 @@
 
 namespace App\Exceptions;
 
-class ViewNotFoundException
+class ViewNotFoundException extends \Exception
 {
-
-    public function __construct()
-    {
-    }
+        protected $message = 'View not found';
 }

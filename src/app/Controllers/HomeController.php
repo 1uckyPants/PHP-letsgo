@@ -8,9 +8,9 @@ use App\View;
 
 class HomeController
 {
-    public function index(): string
+    public function index(): View
     {
-        return (new View('index'))->render();
+        return View::make('index', ['foo' => 'bar']);
     }
 
     public function upload()
