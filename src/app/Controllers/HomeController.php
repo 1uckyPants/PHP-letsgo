@@ -5,25 +5,20 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\View;
+use App\App;
 use PDO;
 
+/**
+ * @mixin PDO
+ */
 class HomeController
 {
     public function index(): View
     {
+        $db = App::db();
 
-        try {
-            $db = new PDO(
-                'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_DATABASE'],
-                $_ENV['DB_USER'],
-                $_ENV['DB_PASS']
-            );
-        } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), (int) $e->getCode());
-        }
-
-            $email = 'J@doe.com';
-            $name = 'Jane Doe';
+            $email = 'Silvername@doe.com';
+            $name = 'Vlad Doe';
             $amount = 25;
 
         try {

@@ -8,8 +8,10 @@ use App\Exceptions\ViewNotFoundException;
 
 class View
 {
-    public function __construct(protected string $view, protected array $params = [])
-    {
+    public function __construct(
+        protected string $view,
+        protected array $params = []
+    ) {
     }
 
     public static function make(string $view, array $params = []): static
@@ -17,15 +19,17 @@ class View
         return new static($view, $params);
     }
 
-    public function render(): bool|string
+    public function render(): string
     {
         $viewPath = VIEW_PATH . '/' . $this->view . '.php';
 
         if (! file_exists($viewPath)) {
-            throw new ViewNotFoundException;
+            throw new ViewNotFoundException();
         }
 
-        extract($this->params);
+        foreach($this->params as $key => $value) {
+            $$key = $value;
+        }
 
         ob_start();
 
