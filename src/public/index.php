@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 use App\App;
-use App\Router;
-use App\Controllers\HomeController;
-use App\Controllers\InvoiceController;
 use App\Config;
+use App\Controllers\HomeController;
+use App\Controllers\UpLoadController;
+use App\Router;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -18,15 +20,18 @@ $router = new Router();
 
 $router
     ->get('/', [HomeController::class, 'index'])
-    ->post('/upload', [HomeController::class, 'upload'])
-    ->get('/invoices', [InvoiceController::class, 'index'])
-    ->get('/invoices/create', [InvoiceController::class, 'create'])
-    ->post('/invoices/create', [InvoiceController::class, 'store']);
+    ->post('/upload', [UpLoadController::class, 'upload'])
+    ->get('/viewTransaction', [UpLoadController::class, 'giveTransaction']);
 
 (new App(
     $router,
     ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
     new Config($_ENV)
-
 ))->run();
 
+function formatDollarAmount (float $amount): string
+{
+    $isNegative = $amount < 0;
+
+    return ($isNegative ? '-' : '') . '$' . number_format(abs($amount), 2);
+}

@@ -1,11 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App;
 
 use App\Exceptions\RouteNotFoundException;
-
 
 class App
 {
@@ -24,11 +23,12 @@ class App
     public function run()
     {
         try {
-            echo $this->router->resolve($this->request['uri'], $this->request['method']);
-        } catch (RouteNotFoundException $e) {
+            echo $this->router->resolve($this->request['uri'], strtolower($this->request['method']));
+        } catch (RouteNotFoundException) {
             http_response_code(404);
 
             echo View::make('error/404');
         }
     }
 }
+

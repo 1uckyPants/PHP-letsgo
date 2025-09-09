@@ -2,7 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace App;
+namespace App\Models;
+
+use App\App;
+use App\DB;
+use App\Service\UploadService;
 
 abstract class Model
 {
