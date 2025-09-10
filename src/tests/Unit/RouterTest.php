@@ -66,6 +66,19 @@ class RouterTest extends TestCase
         $this->assertEmpty($this->router->routes());
     }
 
+    public function test_this_test(): void
+    {
+        $this->router->register('get', '/users', fn() => [1, 2, 3]);
+
+        $expected = [
+            'get' => [
+                '/users' => fn() => [1, 2, 3]
+            ]
+        ];
+
+        $this->assertSame($expected, $this->router->routes());
+    }
+
     #[\PHPUnit\Framework\Attributes\DataProviderExternal(RouterDataProvider::class, 'routeNotFoundCases')]
     public function test_it_throws_route_not_found_exception(
         string $requestUri,
